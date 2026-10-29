@@ -8,14 +8,14 @@ A clean, responsive, and ultra-fast cross-platform AI chatbot powered by the **G
 
 ## 📥 Downloads
 
-Download the pre-built binaries for your device directly from [GitHub Releases](https://github.com/Dushyanth-hub/light-chatbot/releases):
+Pre-built binaries are hosted on [GitHub Releases](https://github.com/Dushyanth-hub/light-chatbot/releases).
 
-| Platform | File Type | Download Link | Notes |
+| Platform | Format | Download Link | Notes |
 | :--- | :--- | :--- | :--- |
-| **Windows** | `.exe` (Installer) | [⬇️ Download Light Setup 1.0.0.exe](https://github.com/Dushyanth-hub/light-chatbot/releases/latest/download/Light-Setup-1.0.0.exe) | Standard Windows installer (`release\Light Setup 1.0.0.exe`) |
-| **Android** | `.apk` (Package) | [⬇️ Download Light Chatbot APK](https://github.com/Dushyanth-hub/light-chatbot/releases/latest/download/app-debug.apk) | Direct installable APK (`app-debug.apk`) |
+| 🪟 **Windows** | `.exe` Installer | [⬇️ Download Windows Setup](https://github.com/Dushyanth-hub/light-chatbot/releases/latest/download/Light-Setup-1.0.0.exe) | Standard Windows installer (`release\Light Setup 1.0.0.exe`) |
+| 📱 **Android** | `.apk` Package | [⬇️ Download Android APK](https://github.com/Dushyanth-hub/light-chatbot/releases/latest/download/app-debug.apk) | Direct installable APK (`app-debug.apk`) |
 
-> 💡 *To download: Click the link above or visit the [Releases Page](https://github.com/Dushyanth-hub/light-chatbot/releases) to grab the latest version.*
+> 📌 **Note:** You can also browse all versions and asset downloads directly on the **[Releases Page](https://github.com/Dushyanth-hub/light-chatbot/releases)**.
 
 ---
 
