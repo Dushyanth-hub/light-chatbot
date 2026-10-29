@@ -45,8 +45,8 @@ export default function ChatInput({
   const canSend = text.trim().length > 0 && !disabled;
 
   return (
-    <div className="w-full bg-[#212121] px-4 sm:px-6 pt-1 pb-3 sm:pb-4 safe-bottom select-none">
-      <div className="max-w-3xl mx-auto w-full">
+    <div className="w-full bg-[#212121] px-3 sm:px-8 pt-1 pb-3 sm:pb-4 safe-bottom select-none">
+      <div className="max-w-4xl mx-auto w-full">
         {/* Floating Input Pill - ChatGPT / Gemini style */}
         <div className="relative flex items-end gap-2 bg-[#2f2f2f] border border-white/10 focus-within:border-white/20 rounded-[26px] px-3.5 sm:px-4 py-2 transition-all shadow-md">
           {/* Text Area */}
