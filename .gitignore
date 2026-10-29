@@ -5,7 +5,11 @@ node_modules/
 dist/
 build/
 out/
-release/
+release/win-unpacked/
+release/*.blockmap
+release/builder-*.yaml
+release/builder-*.yml
+release/latest.yml
 
 # Environment variables (API keys!)
 .env
@@ -31,11 +35,9 @@ android/.gradle/
 android/local.properties
 android/captures/
 android/app/release/
-*.apk
 *.aab
 *.keystore
 *.jks
 
 # Windows installers
-*.exe
 *.msi
