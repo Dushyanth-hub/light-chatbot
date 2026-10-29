@@ -11,7 +11,7 @@ A clean, responsive, and ultra-fast cross-platform AI chatbot powered by the **G
 | Platform | Format | Direct Download Link | Details |
 | :--- | :--- | :--- | :--- |
 | 🪟 **Windows** | `.exe` Installer | [⬇️ **Download Light-Setup-1.0.0.exe**](https://github.com/Dushyanth-hub/light-chatbot/raw/main/release/Light-Setup-1.0.0.exe) | Ready-to-install Windows app (~85 MB) |
-| 📱 **Android** | `.apk` Package | [⬇️ Download Android APK](https://github.com/Dushyanth-hub/light-chatbot/releases/latest/download/app-debug.apk) | Build via Android Studio (`app-debug.apk`) |
+| 📱 **Android** | `.apk` Package | [⬇️ **Download Light-Chatbot.apk**](https://github.com/Dushyanth-hub/light-chatbot/raw/main/release/app-debug.apk) | Direct installable APK (~4.2 MB) |
 
 > 📌 **Note:** You can also view release notes and assets on the **[Releases Page](https://github.com/Dushyanth-hub/light-chatbot/releases)**.
 
