@@ -1,35 +1,27 @@
 import React, { useRef, useEffect } from 'react';
-import { Zap, Plus, Settings, Sparkles, Code2, BrainCircuit, BookOpen, PenTool } from 'lucide-react';
+import { Sparkles, Plus, Settings, ChevronDown, Code2, Lightbulb, Compass, FileText } from 'lucide-react';
 import MessageBubble from './MessageBubble';
 
 const SUGGESTIONS = [
   {
     icon: Code2,
-    category: 'Code',
-    title: 'Modern React Hook',
-    prompt: 'Write a custom React hook for debouncing search input with TypeScript types.',
-    color: 'from-amber-500/20 to-orange-500/10 border-amber-500/30 text-amber-300',
+    title: 'Write a script',
+    prompt: 'Write a clean JavaScript utility function to format numbers as currency with locale support.',
   },
   {
-    icon: BrainCircuit,
-    category: 'Brainstorm',
-    title: 'SaaS Architecture',
-    prompt: 'Outline a modern scalable architecture for an AI real-time chat application.',
-    color: 'from-indigo-500/20 to-purple-500/10 border-indigo-500/30 text-indigo-300',
+    icon: Lightbulb,
+    title: 'Brainstorm ideas',
+    prompt: 'Give me 5 creative, practical project ideas combining AI and mobile web apps.',
   },
   {
-    icon: BookOpen,
-    category: 'Explain',
-    title: 'Quantum Physics',
-    prompt: 'Explain quantum superposition and entanglement in simple, intuitive terms.',
-    color: 'from-emerald-500/20 to-teal-500/10 border-emerald-500/30 text-emerald-300',
+    icon: Compass,
+    title: 'Explain a concept',
+    prompt: 'Explain how Large Language Models predict the next token in simple, intuitive terms.',
   },
   {
-    icon: PenTool,
-    category: 'Write',
-    title: 'Executive Summary',
-    prompt: 'Write a compelling product launch announcement email for a high-performance developer tool.',
-    color: 'from-rose-500/20 to-pink-500/10 border-rose-500/30 text-rose-300',
+    icon: FileText,
+    title: 'Draft a message',
+    prompt: 'Draft a polite and professional follow-up email after a project discussion.',
   },
 ];
 
@@ -43,7 +35,6 @@ export default function ChatWindow({
 }) {
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to bottom whenever messages change or streaming updates
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -53,166 +44,106 @@ export default function ChatWindow({
   }, [messages, isStreaming]);
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden ambient-bg relative">
-      {/* Top ambient glow decoration */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-32 bg-amber-500/10 blur-[100px] pointer-events-none" />
-
-      {/* Header */}
-      <header className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-3.5 bg-[#070b14]/85 backdrop-blur-xl border-b border-slate-800/80 safe-top select-none window-drag">
-        {/* App Title & Glowing Thunder Logo */}
-        <div className="flex items-center gap-3 window-no-drag">
-          <div className="relative group cursor-pointer" onClick={onOpenSettings} title="Light AI Settings">
-            {/* Animated glowing thunder badge */}
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500/20 via-amber-500/10 to-yellow-500/5 border border-amber-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.25)] transition-all duration-300 group-hover:scale-105 group-hover:border-amber-400 group-hover:shadow-[0_0_28px_rgba(245,158,11,0.4)]">
-              <Zap className="w-5 h-5 text-amber-400 fill-amber-400 drop-shadow-[0_0_10px_rgba(245,158,11,0.9)] animate-pulse" />
-            </div>
-            {/* Pulse ring */}
-            <span className="absolute -inset-0.5 rounded-2xl bg-amber-500/20 blur-sm -z-10 group-hover:opacity-100 opacity-60 transition duration-500" />
-          </div>
-
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-amber-100 via-amber-300 to-amber-500 bg-clip-text text-transparent flex items-center gap-1.5 leading-none">
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#212121] text-[#ececec]">
+      {/* Header - Sleek & Minimal like ChatGPT / Gemini */}
+      <header className="flex items-center justify-between px-4 sm:px-6 py-3 bg-[#212121] border-b border-neutral-800/80 safe-top select-none window-drag z-10">
+        {/* Model Selector Pill */}
+        <div className="flex items-center gap-2 window-no-drag">
+          <button
+            onClick={onOpenSettings}
+            type="button"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-neutral-800/80 text-neutral-200 transition-colors cursor-pointer group"
+            title="Change AI Model & API Key"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="font-semibold text-[15px] sm:text-[16px] text-white tracking-tight">
                 Light
-              </h1>
-              <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/10 text-amber-300 border border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.15)]">
-                AI
+              </span>
+              <span className="text-xs text-neutral-400 font-normal">
+                {currentModelName}
               </span>
             </div>
-            <p className="text-[11px] font-medium text-slate-400 leading-tight mt-0.5 flex items-center gap-1.5">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)] animate-pulse" />
-              <span>Luminous speed powered by Groq</span>
-            </p>
-          </div>
+            <ChevronDown className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white transition-colors" />
+          </button>
         </div>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2 window-no-drag">
-          {/* Quick Model Pill */}
-          <button
-            onClick={onOpenSettings}
-            title="Active Model (Click to change)"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-900/80 hover:bg-slate-800/80 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all cursor-pointer shadow-sm group"
-          >
-            <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400/40 group-hover:scale-110 transition-transform" />
-            <span className="text-slate-200">{currentModelName}</span>
-          </button>
-
-          {/* New Chat Button */}
+        {/* Action Buttons */}
+        <div className="flex items-center gap-1 window-no-drag">
           <button
             onClick={onNewChat}
-            title="Start new conversation"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-amber-500/40 transition-all cursor-pointer active:scale-95 shadow-sm hover:shadow-[0_0_16px_rgba(245,158,11,0.12)]"
+            type="button"
+            className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800/80 transition-colors cursor-pointer"
+            title="New Chat"
           >
-            <Plus className="w-4 h-4 text-amber-400" />
-            <span className="hidden sm:inline">New Chat</span>
+            <Plus className="w-5 h-5" />
           </button>
-
-          {/* Settings Button */}
           <button
             onClick={onOpenSettings}
-            title="Open Settings"
-            className="p-2 rounded-xl text-slate-400 hover:text-amber-300 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all cursor-pointer active:scale-95 shadow-sm"
+            type="button"
+            className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800/80 transition-colors cursor-pointer"
+            title="Settings"
           >
-            <Settings className="w-4 h-4" />
+            <Settings className="w-5 h-5" />
           </button>
         </div>
       </header>
 
       {/* Messages Scroll Area */}
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
-        <div className="max-w-4xl mx-auto flex flex-col min-h-full">
+        <div className="max-w-3xl mx-auto w-full">
           {messages.length === 0 ? (
-            /* Welcome / Empty Hero State */
-            <div className="my-auto py-8 sm:py-12 px-4 flex flex-col items-center text-center animate-in fade-in zoom-in-95 duration-300">
-              {/* Glowing Hero Thunder Badge */}
-              <div className="relative mb-6">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-amber-500/25 via-amber-500/10 to-yellow-500/5 border border-amber-500/40 flex items-center justify-center shadow-[0_0_40px_rgba(245,158,11,0.3)] transition-transform duration-500 hover:scale-105">
-                  <Zap className="w-10 h-10 sm:w-12 sm:h-12 text-amber-400 fill-amber-400 drop-shadow-[0_0_20px_rgba(245,158,11,0.9)] animate-pulse" />
-                </div>
-                <div className="absolute -inset-2 rounded-3xl bg-amber-500/15 blur-xl -z-10 animate-pulse" />
+            /* Gemini / ChatGPT Style Welcome Canvas */
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 py-8">
+              <div className="w-12 h-12 rounded-2xl bg-neutral-800/80 border border-neutral-700/60 flex items-center justify-center mb-6 shadow-sm">
+                <Sparkles className="w-6 h-6 text-neutral-200" />
               </div>
 
-              {/* Title & Tagline */}
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent mb-2.5">
-                Illuminate Your Thoughts
+              <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight text-white mb-2">
+                How can I help you today?
               </h2>
-              <p className="text-sm sm:text-base text-slate-400 max-w-md mb-8 leading-relaxed font-normal">
-                Ultra-fast, intelligent conversations powered by Groq LPU silicon. Ask anything, generate code, or explore ideas instantly.
+              <p className="text-neutral-400 text-sm sm:text-base max-w-md mb-8">
+                Ask a question, write code, analyze topics, or brainstorm creative ideas.
               </p>
 
-              {/* Quick Prompt Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl w-full text-left">
-                {SUGGESTIONS.map((item, idx) => {
+              {/* Prompt Suggestions Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full max-w-xl text-left">
+                {SUGGESTIONS.map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <button
-                      key={idx}
-                      onClick={() => onSelectPrompt?.(item.prompt)}
+                      key={index}
                       type="button"
-                      className="group p-3.5 rounded-2xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800/90 hover:border-amber-500/40 transition-all duration-200 cursor-pointer text-left shadow-lg hover:shadow-[0_0_20px_rgba(245,158,11,0.12)] hover:-translate-y-0.5 active:translate-y-0"
+                      onClick={() => onSelectPrompt?.(item.prompt)}
+                      className="p-3.5 rounded-2xl bg-neutral-800/50 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700/80 transition-all cursor-pointer group flex flex-col gap-1 text-left"
                     >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border bg-gradient-to-r ${item.color}`}>
-                          {item.category}
-                        </span>
-                        <Icon className="w-4 h-4 text-slate-500 group-hover:text-amber-400 transition-colors" />
+                      <div className="flex items-center gap-2 text-xs font-medium text-neutral-300">
+                        <Icon className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white transition-colors" />
+                        <span>{item.title}</span>
                       </div>
-                      <h3 className="text-xs font-semibold text-slate-200 group-hover:text-amber-300 transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-[12px] text-slate-400 line-clamp-2 mt-1 group-hover:text-slate-300 leading-snug">
-                        &ldquo;{item.prompt}&rdquo;
+                      <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
+                        {item.prompt}
                       </p>
                     </button>
                   );
                 })}
               </div>
-
-              {/* Feature Highlights Pills */}
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-400">
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800">
-                  <Zap className="w-3 h-3 text-amber-400 fill-amber-400" />
-                  Instant LPU Generation
-                </span>
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800">
-                  <Sparkles className="w-3 h-3 text-indigo-400" />
-                  Context-Aware Chat
-                </span>
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800">
-                  <Code2 className="w-3 h-3 text-emerald-400" />
-                  Formatted Code Blocks
-                </span>
-              </div>
             </div>
           ) : (
-            /* Render Message Bubbles */
-            messages.map((msg, index) => (
-              <MessageBubble
-                key={msg.id || index}
-                message={msg}
-                isLastAssistant={index === messages.length - 1 && msg.role === 'assistant'}
-                isStreaming={isStreaming}
-              />
-            ))
-          )}
-
-          {/* Thinking / Waiting for stream start indicator */}
-          {isStreaming && messages[messages.length - 1]?.role !== 'assistant' && (
-            <div className="flex items-center gap-3 text-slate-400 text-xs py-3 px-4 my-2 rounded-2xl bg-slate-900/60 border border-slate-800/60 w-fit backdrop-blur-md animate-in fade-in duration-300">
-              <div className="relative flex items-center justify-center w-6 h-6 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400 animate-pulse" />
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" />
-                <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce [animation-delay:0.15s]" />
-                <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce [animation-delay:0.3s]" />
-                <span className="ml-2 font-medium text-slate-300">Light is thinking...</span>
-              </div>
+            /* Message List */
+            <div className="flex flex-col">
+              {messages.map((msg, index) => (
+                <MessageBubble
+                  key={msg.id || index}
+                  message={msg}
+                  isLastAssistant={
+                    index === messages.length - 1 && msg.role === 'assistant'
+                  }
+                  isStreaming={isStreaming}
+                />
+              ))}
+              <div ref={messagesEndRef} className="h-4" />
             </div>
           )}
-
-          <div ref={messagesEndRef} />
         </div>
       </div>
     </div>

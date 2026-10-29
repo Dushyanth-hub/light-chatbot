@@ -13,6 +13,12 @@ A clean, responsive, and ultra-fast cross-platform AI chatbot powered by the **G
 | 🪟 **Windows** | `.exe` Installer | [⬇️ **Download Light-Setup-1.0.0.exe**](https://github.com/Dushyanth-hub/light-chatbot/raw/main/release/Light-Setup-1.0.0.exe) | Ready-to-install Windows app (~85 MB) |
 | 📱 **Android** | `.apk` Package | [⬇️ **Download Light-Chatbot.apk**](https://github.com/Dushyanth-hub/light-chatbot/raw/main/release/app-debug.apk) | Direct installable APK (~4.2 MB) |
 
+### 📍 Local File Locations on Your PC
+- 🪟 **Windows `.exe`**: `release\Light-Setup-1.0.0.exe`  
+  *(Full Path: `C:\Users\Dushyanth\OneDrive\Desktop\Lightchatbot\release\Light-Setup-1.0.0.exe`)*
+- 📱 **Android `.apk`**: `android\app\build\outputs\apk\debug\app-debug.apk`  
+  *(Also copied in `release\app-debug.apk`)*
+
 > 📌 **Note:** You can also view release notes and assets on the **[Releases Page](https://github.com/Dushyanth-hub/light-chatbot/releases)**.
 
 ---

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Zap, User, AlertCircle, Copy, Check, Terminal } from 'lucide-react';
+import { Sparkles, AlertCircle, Copy, Check, Terminal } from 'lucide-react';
 
-// Code block with Copy button and language header
+// Modern ChatGPT-style Code block with Copy button
 function CodeBlock({ children, className }) {
   const [copied, setCopied] = useState(false);
   const match = /language-(\w+)/.exec(className || '');
@@ -20,37 +20,37 @@ function CodeBlock({ children, className }) {
   };
 
   return (
-    <div className="relative my-3 rounded-xl overflow-hidden border border-slate-800/90 bg-[#070b14] shadow-lg group">
+    <div className="relative my-4 rounded-xl overflow-hidden border border-neutral-800 bg-[#0d0d0d] shadow-md group">
       {/* Code Header Bar */}
-      <div className="flex items-center justify-between px-3.5 py-1.5 bg-slate-900/90 border-b border-slate-800 text-xs text-slate-400 select-none">
-        <div className="flex items-center gap-1.5">
-          <Terminal className="w-3.5 h-3.5 text-amber-400" />
-          <span className="font-mono text-[11px] uppercase tracking-wider text-slate-300">
+      <div className="flex items-center justify-between px-4 py-2 bg-neutral-900 border-b border-neutral-800 text-xs text-neutral-400 select-none">
+        <div className="flex items-center gap-2">
+          <Terminal className="w-3.5 h-3.5 text-neutral-400" />
+          <span className="font-mono text-[12px] uppercase tracking-wider text-neutral-300">
             {language || 'code'}
           </span>
         </div>
         <button
           onClick={handleCopy}
           type="button"
-          className="flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition active:scale-95 cursor-pointer"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium text-neutral-300 hover:text-white hover:bg-neutral-800 transition active:scale-95 cursor-pointer"
           title="Copy code"
         >
           {copied ? (
             <>
-              <Check className="w-3 h-3 text-emerald-400" />
-              <span className="text-emerald-400">Copied</span>
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="text-emerald-400">Copied!</span>
             </>
           ) : (
             <>
-              <Copy className="w-3 h-3" />
-              <span>Copy</span>
+              <Copy className="w-3.5 h-3.5" />
+              <span>Copy code</span>
             </>
           )}
         </button>
       </div>
 
       {/* Code Body */}
-      <pre className="p-3.5 overflow-x-auto text-[13px] leading-relaxed font-mono text-slate-200">
+      <pre className="p-4 overflow-x-auto text-[13px] sm:text-[14px] leading-relaxed font-mono text-neutral-100">
         <code>{codeString}</code>
       </pre>
     </div>
@@ -72,152 +72,173 @@ export default function MessageBubble({ message, isLastAssistant, isStreaming })
     }
   };
 
-  return (
-    <div
-      className={`group flex w-full my-3.5 transition-all duration-300 ${
-        isUser ? 'justify-end' : 'justify-start'
-      }`}
-    >
-      <div
-        className={`flex max-w-[92%] sm:max-w-[82%] md:max-w-[75%] gap-2.5 sm:gap-3 ${
-          isUser ? 'flex-row-reverse' : 'flex-row'
-        }`}
-      >
-        {/* Avatar Badge with Luminous Glow */}
-        <div
-          className={`flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-xs font-semibold select-none transition-transform duration-300 group-hover:scale-105 ${
-            isUser
-              ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-bold shadow-md shadow-amber-500/20'
-              : isError
-              ? 'bg-red-500/10 text-red-400 border border-red-500/30 shadow-sm shadow-red-500/10'
-              : 'bg-slate-900 border border-amber-400/30 text-amber-400 shadow-md shadow-amber-500/10'
-          }`}
-        >
-          {isUser ? (
-            <User className="w-4 h-4" />
-          ) : isError ? (
-            <AlertCircle className="w-4 h-4 text-red-400" />
-          ) : (
-            <Zap className="w-4 h-4 fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.6)]" />
-          )}
+  if (isUser) {
+    // Sleek ChatGPT / Gemini style user bubble
+    return (
+      <div className="flex w-full justify-end my-3 sm:my-4 px-2">
+        <div className="max-w-[85%] sm:max-w-[75%] rounded-[24px] px-5 py-3 bg-[#2f2f2f] text-[#ececec] text-[15px] sm:text-[16px] leading-[1.6] shadow-sm border border-white/5 break-words whitespace-pre-wrap select-text">
+          {message.content}
         </div>
+      </div>
+    );
+  }
 
-        {/* Message Bubble Body */}
-        <div className="flex flex-col gap-1 min-w-0">
-          <div
-            className={`relative px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl text-sm leading-relaxed shadow-lg break-words transition-all duration-200 ${
-              isUser
-                ? 'bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 text-slate-950 font-medium rounded-tr-sm shadow-amber-500/15'
-                : isError
-                ? 'bg-red-950/30 border border-red-800/60 text-red-200 rounded-tl-sm backdrop-blur-md'
-                : 'bg-slate-900/70 border border-slate-800/80 text-slate-100 rounded-tl-sm backdrop-blur-md hover:border-slate-700/80 shadow-black/40'
-            }`}
-          >
-            {isUser ? (
-              <div className="whitespace-pre-wrap text-[14px] sm:text-[15px] font-normal leading-relaxed">
-                {message.content}
-              </div>
-            ) : isError ? (
-              <div className="flex items-start gap-2 text-xs sm:text-sm">
-                <span className="text-red-300">{message.content}</span>
-              </div>
+  // Assistant response - Clean, spacious, and unboxed like ChatGPT / Gemini
+  return (
+    <div className="group flex w-full my-4 sm:my-6 px-2 text-[#d1d5db]">
+      <div className="flex w-full gap-3 sm:gap-4">
+        {/* Subtle AI Icon Avatar */}
+        <div className="flex-shrink-0 pt-1">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-neutral-800 border border-neutral-700/60 flex items-center justify-center text-neutral-200 shadow-sm">
+            {isError ? (
+              <AlertCircle className="w-4 h-4 text-red-400" />
             ) : (
-              <div className="prose prose-invert max-w-none text-[14px] sm:text-[15px] leading-relaxed space-y-2">
-                <ReactMarkdown
-                  components={{
-                    code({ node, inline, className, children, ...props }) {
-                      if (!inline) {
-                        return <CodeBlock className={className}>{children}</CodeBlock>;
-                      }
-                      return (
-                        <code
-                          className="px-1.5 py-0.5 rounded-md bg-amber-400/10 text-amber-300 font-mono text-[12px] sm:text-[13px] border border-amber-400/20"
-                          {...props}
-                        >
-                          {children}
-                        </code>
-                      );
-                    },
-                    p({ children }) {
-                      return <p className="my-1.5 leading-relaxed text-slate-200">{children}</p>;
-                    },
-                    ul({ children }) {
-                      return <ul className="my-2 space-y-1 list-disc pl-4 text-slate-200">{children}</ul>;
-                    },
-                    ol({ children }) {
-                      return <ol className="my-2 space-y-1 list-decimal pl-4 text-slate-200">{children}</ol>;
-                    },
-                    li({ children }) {
-                      return <li className="text-slate-200 marker:text-amber-400">{children}</li>;
-                    },
-                    blockquote({ children }) {
-                      return (
-                        <blockquote className="my-2 pl-3.5 border-l-2 border-amber-400/70 text-slate-300 italic bg-amber-400/[0.03] py-1 rounded-r-lg">
-                          {children}
-                        </blockquote>
-                      );
-                    },
-                    table({ children }) {
-                      return (
-                        <div className="my-3 overflow-x-auto rounded-xl border border-slate-800">
-                          <table className="w-full text-left text-xs sm:text-sm border-collapse">
-                            {children}
-                          </table>
-                        </div>
-                      );
-                    },
-                    thead({ children }) {
-                      return <thead className="bg-slate-900 border-b border-slate-800 text-slate-300">{children}</thead>;
-                    },
-                    th({ children }) {
-                      return <th className="px-3 py-2 font-semibold">{children}</th>;
-                    },
-                    td({ children }) {
-                      return <td className="px-3 py-2 border-b border-slate-800/50 text-slate-300">{children}</td>;
-                    },
-                    a({ href, children }) {
-                      return (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-amber-400 hover:text-amber-300 underline underline-offset-2 transition"
-                        >
-                          {children}
-                        </a>
-                      );
-                    },
-                  }}
-                >
-                  {message.content}
-                </ReactMarkdown>
-
-                {/* Animated cursor when this message is actively streaming */}
-                {isLastAssistant && isStreaming && (
-                  <span className="cursor-blink inline-block w-1.5 h-4 ml-1 bg-amber-400 rounded-sm translate-y-0.5" />
-                )}
-              </div>
+              <Sparkles className="w-4 h-4 text-neutral-200" />
             )}
           </div>
+        </div>
+
+        {/* Assistant Content Canvas */}
+        <div className="flex-1 min-w-0">
+          {isError ? (
+            <div className="p-4 rounded-xl bg-red-950/20 border border-red-800/40 text-red-300 text-sm">
+              {message.content}
+            </div>
+          ) : (
+            <div className="text-[15px] sm:text-[16px] leading-[1.75] text-[#d1d5db] font-normal tracking-normal select-text">
+              <ReactMarkdown
+                components={{
+                  // Code block rendering
+                  code({ node, inline, className, children, ...props }) {
+                    if (!inline) {
+                      return <CodeBlock className={className}>{children}</CodeBlock>;
+                    }
+                    return (
+                      <code
+                        className="px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-200 font-mono text-[13px] border border-neutral-700/60"
+                        {...props}
+                      >
+                        {children}
+                      </code>
+                    );
+                  },
+                  // Headings with clean ChatGPT/Gemini scale & margins
+                  h1({ children }) {
+                    return (
+                      <h1 className="text-xl sm:text-2xl font-bold text-white mt-6 mb-3 tracking-tight border-b border-neutral-800/60 pb-2">
+                        {children}
+                      </h1>
+                    );
+                  },
+                  h2({ children }) {
+                    return (
+                      <h2 className="text-lg sm:text-xl font-semibold text-white mt-5 mb-2.5 tracking-tight">
+                        {children}
+                      </h2>
+                    );
+                  },
+                  h3({ children }) {
+                    return (
+                      <h3 className="text-base sm:text-lg font-semibold text-neutral-100 mt-4 mb-2">
+                        {children}
+                      </h3>
+                    );
+                  },
+                  // Clean paragraph spacing
+                  p({ children }) {
+                    return <p className="my-3 leading-[1.75] text-[#d1d5db]">{children}</p>;
+                  },
+                  // Neatly indented bullet lists with proper marker spacing
+                  ul({ children }) {
+                    return (
+                      <ul className="my-3.5 space-y-2 pl-6 list-disc marker:text-neutral-400 text-[#d1d5db]">
+                        {children}
+                      </ul>
+                    );
+                  },
+                  ol({ children }) {
+                    return (
+                      <ol className="my-3.5 space-y-2 pl-6 list-decimal marker:text-neutral-400 text-[#d1d5db]">
+                        {children}
+                      </ol>
+                    );
+                  },
+                  li({ children }) {
+                    return <li className="pl-1 leading-[1.7] text-[#d1d5db]">{children}</li>;
+                  },
+                  strong({ children }) {
+                    return <strong className="font-semibold text-white">{children}</strong>;
+                  },
+                  blockquote({ children }) {
+                    return (
+                      <blockquote className="my-4 pl-4 border-l-2 border-neutral-600 text-neutral-400 italic">
+                        {children}
+                      </blockquote>
+                    );
+                  },
+                  hr() {
+                    return <hr className="my-6 border-neutral-800" />;
+                  },
+                  table({ children }) {
+                    return (
+                      <div className="my-4 overflow-x-auto rounded-xl border border-neutral-800">
+                        <table className="w-full text-left text-sm border-collapse">
+                          {children}
+                        </table>
+                      </div>
+                    );
+                  },
+                  thead({ children }) {
+                    return <thead className="bg-neutral-900 border-b border-neutral-800 text-neutral-200">{children}</thead>;
+                  },
+                  th({ children }) {
+                    return <th className="px-3.5 py-2.5 font-semibold text-neutral-200">{children}</th>;
+                  },
+                  td({ children }) {
+                    return <td className="px-3.5 py-2.5 border-b border-neutral-800 text-neutral-300">{children}</td>;
+                  },
+                  a({ href, children }) {
+                    return (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition"
+                      >
+                        {children}
+                      </a>
+                    );
+                  },
+                }}
+              >
+                {message.content}
+              </ReactMarkdown>
+
+              {/* Streaming Cursor */}
+              {isLastAssistant && isStreaming && (
+                <span className="cursor-blink inline-block w-1.5 h-4 ml-1 bg-neutral-300 rounded-sm translate-y-0.5" />
+              )}
+            </div>
+          )}
 
           {/* Action Toolbar below assistant message */}
-          {!isUser && !isError && message.content && (
-            <div className="flex items-center gap-1.5 px-1 py-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          {!isError && message.content && (
+            <div className="flex items-center gap-2 mt-3 pt-1 text-xs">
               <button
                 type="button"
                 onClick={handleCopyMessage}
-                title="Copy full message"
-                className="flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition cursor-pointer"
+                title="Copy message"
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-neutral-400 hover:text-white hover:bg-neutral-800/80 transition active:scale-95 cursor-pointer"
               >
                 {copiedAll ? (
                   <>
-                    <Check className="w-3 h-3 text-emerald-400" />
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
                     <span className="text-emerald-400">Copied</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3 h-3" />
-                    <span>Copy message</span>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Copy</span>
                   </>
                 )}
               </button>

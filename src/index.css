@@ -1,35 +1,32 @@
 @import "tailwindcss";
 
-/* Base styles and mobile safe-area handling */
+/* High-end typography & modern dark canvas like ChatGPT / Gemini */
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #060911;
-  color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #171717;
+  color: #ececec;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background ambient light glow */
-.ambient-bg {
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245, 158, 11, 0.08), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(99, 102, 241, 0.04), transparent 50%),
-    #060911;
+/* Chat background - clean neutral dark like ChatGPT / Gemini */
+.chat-canvas {
+  background-color: #212121;
 }
 
-/* Modern typography code font */
+/* Typography code font */
 code, pre, kbd {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* Custom sleek scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -37,13 +34,13 @@ code, pre, kbd {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.4);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Support for Android edge-to-edge / notch safe areas */
@@ -72,19 +69,4 @@ code, pre, kbd {
 
 .cursor-blink {
   animation: blink 0.9s infinite;
-}
-
-/* Shimmer animation for headers / badges */
-@keyframes subtle-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.shimmer-text {
-  background: linear-gradient(90deg, #fef08a 0%, #f59e0b 50%, #fef08a 100%);
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: subtle-shimmer 6s linear infinite;
 }
